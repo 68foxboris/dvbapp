@@ -1,3 +1,4 @@
+from __future__ import print_function
 from Screens.Screen import Screen
 from Components.ConfigList import ConfigListScreen
 from Components.config import config, getConfigListEntry, ConfigSubsection, ConfigSelection, ConfigInteger
@@ -40,7 +41,7 @@ class ManualFancontrol(Screen,ConfigListScreen):
 		self["current"] = StaticText(_(" "))
 		self.configSetup()
 		self.oldfanoffmode = instandbyon.fanoffmode
-		if instandbyon.fanoffmode is 'ON' :
+		if instandbyon.fanoffmode == 'ON' :
 			instandbyon.checkStatusLoopStop()
 		self.checkFanTimer = eTimer()
 		self.checkFanTimer.callback.append(self.fan_pwm_error)
@@ -56,7 +57,7 @@ class ManualFancontrol(Screen,ConfigListScreen):
 	def displayCurrentValue(self):
 		currrent_val = self["config"].getCurrent()[0]+" : "+str(self["config"].getCurrent()[1].value)
 		self["current"].setText(_(currrent_val))
-#		print currrent_val
+#		print(currrent_val)
 
 	def selectionChanged(self):
 		if self["config"].getCurrent() == self.pwmEntry:
@@ -100,17 +101,17 @@ class ManualFancontrol(Screen,ConfigListScreen):
 		self.createSetup()
 
 	def keySave(self):
-		if instandbyon.fanoffmode is 'OFF' and config.plugins.manualfancontrols.pwmvalue.value == 0:
-#			print "[ManualFancontrol] instandbyon.fanoffmode 'OFF' -> 'ON'"
+		if instandbyon.fanoffmode == 'OFF' and config.plugins.manualfancontrols.pwmvalue.value == 0:
+#			print("[ManualFancontrol] instandbyon.fanoffmode 'OFF' -> 'ON'")
 			instandbyon.fanoffmode = 'ON'
 			instandbyon.addRecordEventCB()
 			instandbyon.checkStatusLoopStart()
-		elif instandbyon.fanoffmode is 'ON' and config.plugins.manualfancontrols.pwmvalue.value != 0:
-#			print "[ManualFancontrol] instandbyon.fanoffmode 'ON' -> 'OFF'"
+		elif instandbyon.fanoffmode == 'ON' and config.plugins.manualfancontrols.pwmvalue.value != 0:
+#			print("[ManualFancontrol] instandbyon.fanoffmode 'ON' -> 'OFF'")
 			instandbyon.fanoffmode = 'OFF'
 			instandbyon.removeRecordEventCB()
 #			instandbyon.checkStatusLoopStop() # stoped at init
-		elif self.oldfanoffmode is 'ON' :
+		elif self.oldfanoffmode == 'ON' :
 			instandbyon.checkStatusLoopStart()
 		instandbyon.checkStstus()
 		ConfigListScreen.keySave(self)
@@ -122,7 +123,7 @@ class ManualFancontrol(Screen,ConfigListScreen):
 			x[1].cancel()
 		instandbyon.checkStstus()
 		self.oldfanoffmode = instandbyon.fanoffmode
-		if self.oldfanoffmode is 'ON' :
+		if self.oldfanoffmode == 'ON' :
 			instandbyon.checkStatusLoopStart()
 		self.close()
 
