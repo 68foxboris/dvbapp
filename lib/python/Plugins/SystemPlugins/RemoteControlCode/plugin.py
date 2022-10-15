@@ -185,8 +185,8 @@ self[&quot;list&quot;].instance.resize(eSize(*listsize))
 # center window
 newwidth = wsize[0]
 newheight = wsize[1]
-window_posx = orgpos.x() + (orgwidth - newwidth)/2
-window_posy = orgpos.y() + (orgheight - newheight)/2
+window_posx = orgpos.x() + int((orgwidth - newwidth)/2)
+window_posy = orgpos.y() + int((orgheight - newheight)/2)
 if (150 &gt; window_posy):
         window_posy = 150
 self.instance.move(ePoint(window_posx, window_posy))
