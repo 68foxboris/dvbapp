@@ -1,3 +1,4 @@
+from __future__ import print_function
 from Screens.Screen import Screen
 from Components.ConfigList import ConfigListScreen
 from Components.config import config, getConfigListEntry, ConfigSubsection, ConfigSelection, ConfigInteger
@@ -37,7 +38,7 @@ class RemoteControlCodeInit:
 	def setSystemCode(self, type = 2):
 		if not fileExists("/proc/stb/fp/remote_code"):
 			return -1
-		print "<RemoteControlCode> Write Remote Control Code : %d" % type
+		print("<RemoteControlCode> Write Remote Control Code : %d" % type)
 		f = open("/proc/stb/fp/remote_code", "w")
 		f.write("%d" % type)
 		f.close()
@@ -113,7 +114,7 @@ class RemoteControlCode(Screen,ConfigListScreen,RemoteControlCodeInit):
 		self["config"].l.setList(self.list)
 
 	def keySave(self):
-		print "<RemoteControlCode> Selected System Code : ",config.plugins.remotecontrolcode.systemcode.value
+		print("<RemoteControlCode> Selected System Code : ",config.plugins.remotecontrolcode.systemcode.value)
 		ret = self.setSystemCode(int(config.plugins.remotecontrolcode.systemcode.value))
 		if ret == -1:
 			self.restoreCode()
@@ -184,8 +185,8 @@ self[&quot;list&quot;].instance.resize(eSize(*listsize))
 # center window
 newwidth = wsize[0]
 newheight = wsize[1]
-window_posx = orgpos.x() + (orgwidth - newwidth)/2
-window_posy = orgpos.y() + (orgheight - newheight)/2
+window_posx = orgpos.x() + int((orgwidth - newwidth)/2)
+window_posy = orgpos.y() + int((orgheight - newheight)/2)
 if (150 &gt; window_posy):
         window_posy = 150
 self.instance.move(ePoint(window_posx, window_posy))
