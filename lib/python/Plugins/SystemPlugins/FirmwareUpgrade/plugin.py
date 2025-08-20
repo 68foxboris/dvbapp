@@ -117,7 +117,7 @@ class FPUpgradeCore() :
 				#print('[FPUpgradeCore] open >> [ok]')
 
 				rc = fcntl.ioctl(device, 0, size)
-				if rc < 0: raise Exception, 'fail to set size : %d'%(rc)
+				if rc < 0: raise Exception('fail to set size : %d'%(rc))
 				#print('[FPUpgradeCore] set size >> [ok]')
 				self.status = STATUS_PREPARED
 
